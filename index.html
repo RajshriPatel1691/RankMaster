@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Leaderboard Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #4f46e5;
+    }
+    .form-container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #4f46e5;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #4338ca;
+    }
+    table {
+      width: 100%;
+      margin-top: 30px;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    th {
+      background: #4f46e5;
+      color: white;
+    }
+    @media (max-width: 600px) {
+      .form-container, table {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🏆 Leaderboard Dashboard</h1>
+
+  <div class="form-container">
+    <input type="text" id="name" placeholder="Enter player name" />
+    <input type="number" id="score" placeholder="Enter score" />
+    <button onclick="addPlayer()">Add Player</button>
+  </div>
+
+  <table id="leaderboard">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Player rows will appear here -->
+    </tbody>
+  </table>
+
+  <script>
+    let players = [];
+
+    function addPlayer() {
+      const name = document.getElementById("name").value.trim();
+      const score = parseInt(document.getElementById("score").value.trim());
+
+      if (name === "" || isNaN(score)) {
+        alert("Please enter valid name and score.");
+        return;
+      }
+
+      players.push({ name, score });
+      document.getElementById("name").value = "";
+      document.getElementById("score").value = "";
+
+      updateLeaderboard();
+    }
+
+    function updateLeaderboard() {
+      // Sort players by score (highest first)
+      players.sort((a, b) => b.score - a.score);
+
+      const tbody = document.getElementById("leaderboard").querySelector("tbody");
+      tbody.innerHTML = ""; // Clear table first
+
+      players.forEach((player, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${player.name}</td>
+          <td>${player.score}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+  </script>
+
+</body>
+</html>
