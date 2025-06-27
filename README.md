@@ -1,4 +1,4 @@
-🏆 RankMaster
+##🏆 RankMaster
 
 **RankMaster** is a dynamic and responsive leaderboard dashboard built using **HTML, CSS, and JavaScript**.  
 Easily add players and scores, view live rankings, and track top performers with a clean and modern UI.
